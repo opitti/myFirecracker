@@ -1,0 +1,75 @@
+2026-04-01T17:25:19.292118634 [anonymous-instance:fc_api:INFO:src/firecracker/src/api_server/parsed_request.rs:179] The request was executed successfully. Status code: 204 No Content.
+2026-04-01T17:25:19.292580809 [anonymous-instance:fc_api:DEBUG:src/firecracker/src/api_server/mod.rs:115] Total previous API call duration: 663 us.
+2026-04-01T17:25:19.307193172 [anonymous-instance:fc_api:INFO:src/firecracker/src/api_server/parsed_request.rs:74] The API server received a Put request on "/boot-source" with body "{\n        \"kernel_image_path\": \"/home/olivier/dev/firecracker/vmlinux-6.1.155.2\",\n        \"boot_args\": \"console=ttyS0 reboot=k panic=1\"\n    }".
+2026-04-01T17:25:19.307266993 [anonymous-instance:fc_api:INFO:src/firecracker/src/api_server/parsed_request.rs:179] The request was executed successfully. Status code: 204 No Content.
+2026-04-01T17:25:19.307279356 [anonymous-instance:fc_api:DEBUG:src/firecracker/src/api_server/mod.rs:115] Total previous API call duration: 93 us.
+2026-04-01T17:25:19.321008632 [anonymous-instance:fc_api:INFO:src/firecracker/src/api_server/parsed_request.rs:74] The API server received a Put request on "/drives/rootfs" with body "{\n        \"drive_id\": \"rootfs\",\n        \"path_on_host\": \"/home/olivier/dev/firecracker/ubuntu-24.04.ext4\",\n        \"is_root_device\": true,\n        \"is_read_only\": true\n    }".
+2026-04-01T17:25:19.321129666 [anonymous-instance:fc_api:INFO:src/firecracker/src/api_server/parsed_request.rs:179] The request was executed successfully. Status code: 204 No Content.
+2026-04-01T17:25:19.321142507 [anonymous-instance:fc_api:DEBUG:src/firecracker/src/api_server/mod.rs:115] Total previous API call duration: 141 us.
+2026-04-01T17:25:19.334621698 [anonymous-instance:fc_api:INFO:src/firecracker/src/api_server/parsed_request.rs:74] The API server received a Put request on "/drives/appfs" with body "{\n        \"drive_id\": \"appfs\",\n        \"path_on_host\": \"/home/olivier/dev/firecracker/multi-vm-explore/state/vms/vm1/app-data.ext4\",\n        \"is_root_device\": false,\n        \"is_read_only\": false\n    }".
+2026-04-01T17:25:19.334729843 [anonymous-instance:fc_api:INFO:src/firecracker/src/api_server/parsed_request.rs:179] The request was executed successfully. Status code: 204 No Content.
+2026-04-01T17:25:19.334742806 [anonymous-instance:fc_api:DEBUG:src/firecracker/src/api_server/mod.rs:115] Total previous API call duration: 129 us.
+2026-04-01T17:25:19.348052613 [anonymous-instance:fc_api:INFO:src/firecracker/src/api_server/parsed_request.rs:74] The API server received a Put request on "/network-interfaces/net1" with body "{\n        \"iface_id\": \"net1\",\n        \"guest_mac\": \"06:00:ac:10:00:02\",\n        \"host_dev_name\": \"fctap2\"\n    }".
+2026-04-01T17:25:19.349071692 [anonymous-instance:fc_api:INFO:src/firecracker/src/api_server/parsed_request.rs:179] The request was executed successfully. Status code: 204 No Content.
+2026-04-01T17:25:19.349104097 [anonymous-instance:fc_api:DEBUG:src/firecracker/src/api_server/mod.rs:115] Total previous API call duration: 1058 us.
+2026-04-01T17:25:19.380667474 [anonymous-instance:fc_api:INFO:src/firecracker/src/api_server/parsed_request.rs:74] The API server received a Put request on "/actions" with body "{\n        \"action_type\": \"InstanceStart\"\n    }".
+2026-04-01T17:25:19.380712748 [anonymous-instance:main:DEBUG:src/vmm/src/builder.rs:383] event_start: build microvm for boot
+2026-04-01T17:25:19.435276394 [anonymous-instance:main:DEBUG:src/vmm/src/arch/x86_64/mod.rs:458] Kernel loaded using PVH boot protocol
+2026-04-01T17:25:19.435389100 [anonymous-instance:main:INFO:src/vmm/src/devices/pci/pci_segment.rs:132] pci: adding PCI segment: id=0x0, PCI MMIO config address: 0xeec00000, mem32 area: [0xc0001000-0xeebfffff], mem64 area: [0x4000000000-0x7fffffffff] IO area: [0xcf8-0xcff]
+2026-04-01T17:25:19.435439213 [anonymous-instance:main:DEBUG:src/vmm/src/device_manager/pci_mngr.rs:119] Allocating BDF: 0000:00:01.0 for device
+2026-04-01T17:25:19.435449032 [anonymous-instance:main:DEBUG:src/vmm/src/vstate/vm.rs:474] Creating new MSI group with 2 vectors
+2026-04-01T17:25:19.435748994 [anonymous-instance:main:DEBUG:src/vmm/src/device_manager/pci_mngr.rs:95] Inserting MMIO BAR region: 0x4000000000:0x80000
+2026-04-01T17:25:19.435798071 [anonymous-instance:main:DEBUG:src/vmm/src/device_manager/pci_mngr.rs:119] Allocating BDF: 0000:00:02.0 for device
+2026-04-01T17:25:19.435808374 [anonymous-instance:main:DEBUG:src/vmm/src/vstate/vm.rs:474] Creating new MSI group with 2 vectors
+2026-04-01T17:25:19.435839991 [anonymous-instance:main:DEBUG:src/vmm/src/device_manager/pci_mngr.rs:95] Inserting MMIO BAR region: 0x4000080000:0x80000
+2026-04-01T17:25:19.435866167 [anonymous-instance:main:DEBUG:src/vmm/src/device_manager/pci_mngr.rs:119] Allocating BDF: 0000:00:03.0 for device
+2026-04-01T17:25:19.435874203 [anonymous-instance:main:DEBUG:src/vmm/src/vstate/vm.rs:474] Creating new MSI group with 3 vectors
+2026-04-01T17:25:19.435898170 [anonymous-instance:main:DEBUG:src/vmm/src/device_manager/pci_mngr.rs:95] Inserting MMIO BAR region: 0x4000100000:0x80000
+2026-04-01T17:25:19.435930237 [anonymous-instance:main:DEBUG:src/vmm/src/devices/acpi/vmgenid.rs:61] vmgenid: building VMGenID device. Address: 0x000dfff0. IRQ: 5
+2026-04-01T17:25:19.435993488 [anonymous-instance:main:DEBUG:src/vmm/src/devices/acpi/vmgenid.rs:114] vmgenid: writing new generation ID to guest: 0x6591aaeb556a018d154e5ec5de83e948
+2026-04-01T17:25:19.436130524 [anonymous-instance:main:DEBUG:src/vmm/src/arch/x86_64/mptable.rs:129] mptable: Allocated 304 bytes for MPTable 1 vCPUs at address 0x0009fc00
+2026-04-01T17:25:19.436961110 [anonymous-instance:main:DEBUG:src/vmm/src/acpi/mod.rs:73] acpi: Wrote table (4129 bytes) at address: 0x0009fd30
+2026-04-01T17:25:19.436984197 [anonymous-instance:main:DEBUG:src/vmm/src/acpi/mod.rs:73] acpi: Wrote table (276 bytes) at address: 0x000a0d51
+2026-04-01T17:25:19.436993178 [anonymous-instance:main:DEBUG:src/vmm/src/acpi/mod.rs:73] acpi: Wrote table (64 bytes) at address: 0x000a0e65
+2026-04-01T17:25:19.437000809 [anonymous-instance:main:DEBUG:src/vmm/src/acpi/mod.rs:73] acpi: Wrote table (60 bytes) at address: 0x000a0ea5
+2026-04-01T17:25:19.437008910 [anonymous-instance:main:DEBUG:src/vmm/src/acpi/mod.rs:73] acpi: Wrote table (60 bytes) at address: 0x000a0ee1
+2026-04-01T17:25:19.437017138 [anonymous-instance:main:DEBUG:src/vmm/src/acpi/mod.rs:184] acpi: Wrote RSDP (36 bytes) at address: 0x000e0000
+2026-04-01T17:25:19.437465353 [anonymous-instance:main:DEBUG:src/vmm/src/builder.rs:385] event_end: build microvm for boot
+2026-04-01T17:25:19.437479207 [anonymous-instance:main:DEBUG:src/vmm/src/builder.rs:387] event_start: boot microvm
+2026-04-01T17:25:19.437487881 [anonymous-instance:main:INFO:src/vmm/src/device_manager/mod.rs:281] Artificially kick devices
+2026-04-01T17:25:19.437556754 [anonymous-instance:fc_vcpu 0:WARN:src/vmm/src/vstate/vcpu.rs:303] Received a VcpuEvent::Resume message with immediate_exit enabled. immediate_exit was disabled before proceeding
+2026-04-01T17:25:19.437585804 [anonymous-instance:main:DEBUG:src/vmm/src/builder.rs:389] event_end: boot microvm
+2026-04-01T17:25:19.437615998 [anonymous-instance:fc_api:INFO:src/firecracker/src/api_server/parsed_request.rs:179] The request was executed successfully. Status code: 204 No Content.
+2026-04-01T17:25:19.437658160 [anonymous-instance:fc_api:DEBUG:src/firecracker/src/api_server/mod.rs:115] Total previous API call duration: 56994 us.
+2026-04-01T17:25:19.954564818 [anonymous-instance:fc_vcpu 0:WARN:src/vmm/src/arch/x86_64/vcpu.rs:731] vcpu: IO read @ 0x87:0x1 failed: bus_error: MissingAddressRange
+2026-04-01T17:25:20.036824721 [anonymous-instance:fc_vcpu 0:DEBUG:src/vmm/src/pci/msix.rs:188] MSI-X disabled for device 0x8
+2026-04-01T17:25:20.037234619 [anonymous-instance:fc_vcpu 0:DEBUG:src/vmm/src/pci/msix.rs:174] MSI-X enabled for device 0x8
+2026-04-01T17:25:20.041541846 [anonymous-instance:fc_vcpu 0:DEBUG:src/vmm/src/devices/virtio/transport/pci/device.rs:889] Activating device
+2026-04-01T17:25:20.045772494 [anonymous-instance:fc_vcpu 0:DEBUG:src/vmm/src/pci/msix.rs:188] MSI-X disabled for device 0x10
+2026-04-01T17:25:20.046301357 [anonymous-instance:fc_vcpu 0:DEBUG:src/vmm/src/pci/msix.rs:174] MSI-X enabled for device 0x10
+2026-04-01T17:25:20.050125444 [anonymous-instance:fc_vcpu 0:DEBUG:src/vmm/src/devices/virtio/transport/pci/device.rs:889] Activating device
+2026-04-01T17:25:20.055594980 [anonymous-instance:fc_vcpu 0:DEBUG:src/vmm/src/pci/msix.rs:188] MSI-X disabled for device 0x18
+2026-04-01T17:25:20.056054217 [anonymous-instance:fc_vcpu 0:DEBUG:src/vmm/src/pci/msix.rs:174] MSI-X enabled for device 0x18
+2026-04-01T17:25:20.057299885 [anonymous-instance:fc_vcpu 0:DEBUG:src/vmm/src/devices/virtio/transport/pci/device.rs:889] Activating device
+2026-04-01T22:45:50.392545212 [anonymous-instance:main:ERROR:src/vmm/src/signal_handler.rs:118] Shutting down VM after intercepting signal 1, code 0.
+2026-04-01T22:45:50.393551174 [anonymous-instance:fc_api:ERROR:src/vmm/src/signal_handler.rs:118] Shutting down VM after intercepting signal 1, code 0.
+2026-04-01T22:45:50.393906021 [anonymous-instance:fc_vcpu 0:ERROR:src/vmm/src/signal_handler.rs:118] Shutting down VM after intercepting signal 1, code 0.
+irecracker/src/api_server/parsed_request.rs:210] Received Error. Status code: 400 Bad Request. Message: The requested operation is not supported after starting the microVM.
+2026-04-01T00:28:26.676711612 [anonymous-instance:fc_api:DEBUG:src/firecracker/src/api_server/mod.rs:115] Total previous API call duration: 161 us.
+2026-04-01T00:28:26.692302844 [anonymous-instance:fc_api:INFO:src/firecracker/src/api_server/parsed_request.rs:74] The API server received a Put request on "/boot-source" with body "{\n        \"kernel_image_path\": \"/home/olivier/dev/firecracker/vmlinux-6.1.155.2\",\n        \"boot_args\": \"console=ttyS0 reboot=k panic=1\"\n    }".
+2026-04-01T00:28:26.692370951 [anonymous-instance:fc_api:ERROR:src/firecracker/src/api_server/parsed_request.rs:210] Received Error. Status code: 400 Bad Request. Message: The requested operation is not supported after starting the microVM.
+2026-04-01T00:28:26.692390476 [anonymous-instance:fc_api:DEBUG:src/firecracker/src/api_server/mod.rs:115] Total previous API call duration: 96 us.
+2026-04-01T00:28:26.707303843 [anonymous-instance:fc_api:INFO:src/firecracker/src/api_server/parsed_request.rs:74] The API server received a Put request on "/drives/rootfs" with body "{\n        \"drive_id\": \"rootfs\",\n        \"path_on_host\": \"/home/olivier/dev/firecracker/ubuntu-24.04.ext4\",\n        \"is_root_device\": true,\n        \"is_read_only\": true\n    }".
+2026-04-01T00:28:26.707472942 [anonymous-instance:fc_api:ERROR:src/firecracker/src/api_server/parsed_request.rs:210] Received Error. Status code: 400 Bad Request. Message: The requested operation is not supported after starting the microVM.
+2026-04-01T00:28:26.707532561 [anonymous-instance:fc_api:DEBUG:src/firecracker/src/api_server/mod.rs:115] Total previous API call duration: 259 us.
+2026-04-01T00:28:26.722603050 [anonymous-instance:fc_api:INFO:src/firecracker/src/api_server/parsed_request.rs:74] The API server received a Put request on "/drives/appfs" with body "{\n        \"drive_id\": \"appfs\",\n        \"path_on_host\": \"/home/olivier/dev/firecracker/multi-vm-explore/state/vms/vm1/app-data.ext4\",\n        \"is_root_device\": false,\n        \"is_read_only\": false\n    }".
+2026-04-01T00:28:26.722728493 [anonymous-instance:fc_api:ERROR:src/firecracker/src/api_server/parsed_request.rs:210] Received Error. Status code: 400 Bad Request. Message: The requested operation is not supported after starting the microVM.
+2026-04-01T00:28:26.722747540 [anonymous-instance:fc_api:DEBUG:src/firecracker/src/api_server/mod.rs:115] Total previous API call duration: 157 us.
+2026-04-01T00:28:26.737466859 [anonymous-instance:fc_api:INFO:src/firecracker/src/api_server/parsed_request.rs:74] The API server received a Put request on "/network-interfaces/net1" with body "{\n        \"iface_id\": \"net1\",\n        \"guest_mac\": \"06:00:ac:10:00:02\",\n        \"host_dev_name\": \"fctap2\"\n    }".
+2026-04-01T00:28:26.737598746 [anonymous-instance:fc_api:ERROR:src/firecracker/src/api_server/parsed_request.rs:210] Received Error. Status code: 400 Bad Request. Message: The requested operation is not supported after starting the microVM.
+2026-04-01T00:28:26.737657369 [anonymous-instance:fc_api:DEBUG:src/firecracker/src/api_server/mod.rs:115] Total previous API call duration: 198 us.
+2026-04-01T00:28:26.768074832 [anonymous-instance:fc_api:INFO:src/firecracker/src/api_server/parsed_request.rs:74] The API server received a Put request on "/actions" with body "{\n        \"action_type\": \"InstanceStart\"\n    }".
+2026-04-01T00:28:26.768184789 [anonymous-instance:fc_api:ERROR:src/firecracker/src/api_server/parsed_request.rs:210] Received Error. Status code: 400 Bad Request. Message: The requested operation is not supported after starting the microVM.
+2026-04-01T00:28:26.768214401 [anonymous-instance:fc_api:DEBUG:src/firecracker/src/api_server/mod.rs:115] Total previous API call duration: 146 us.
+2026-04-01T00:52:23.946968683 [anonymous-instance:main:WARN:src/vmm/src/devices/legacy/serial.rs:297] Detached the serial input due to peer close/error.
+2026-04-01T00:52:23.949625973 [anonymous-instance:main:ERROR:src/vmm/src/signal_handler.rs:118] Shutting down VM after intercepting signal 1, code 0.

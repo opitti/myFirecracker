@@ -1,0 +1,193 @@
+ Oui. Voici un plan de lecture pragmatique pour comprendre le flux complet get-kernel.sh -> run-firecracker.sh -> call-firecracker.sh en multi-VM.
+
+  Vue d’ensemble
+
+  Il faut séparer le sujet en 3 couches :
+
+  1. préparation des artefacts
+  2. orchestration host par VM
+  3. comportement guest au boot
+
+  Le fil directeur est simple :
+
+  - script/get-kernel.sh construit le noyau, la clé SSH et surtout le rootfs ext4 utilisé ensuite par toutes les VM
+  - multi-vm-explore/run-firecracker.sh <vm-id> prépare l’état host d’une VM et lance le process Firecracker
+  - multi-vm-explore/call-firecracker.sh <vm-id> configure cette VM via l’API socket puis démarre l’instance
+  - dans la VM, fcnet.service lance fcnet-setup.sh, qui configure le réseau et monte /app
+
+  Ordre recommandé
+
+  1. Lire le rôle de chaque fichier
+  2. Comprendre les fichiers produits et consommés
+  3. Comprendre le cycle de vie d’une VM
+  4. Comprendre la séparation rootfs partagé / appfs par VM
+  5. Comprendre les points de panne
+
+  1. Préparation
+
+  Commence par ces fichiers :
+
+  - script/get-kernel.sh
+  - multi-vm-explore/apply-rootfs-overlay.sh
+  - multi-vm-explore/rootfs-overlay/usr/local/bin/fcnet-setup.sh
+  - multi-vm-explore/rootfs-overlay/etc/resolv.conf
+
+  Questions à comprendre :
+
+  - quels fichiers get-kernel.sh télécharge
+  - quels fichiers il génère localement
+  - comment l’overlay est injecté dans squashfs-root
+  - comment squashfs-root devient ubuntu-24.04.ext4
+
+  À retenir :
+
+  - sortie attendue à la racine du repo :
+      - vmlinux-*
+      - ubuntu-24.04.ext4
+      - ubuntu-24.04.id_rsa
+
+  2. Lancement host d’une VM
+
+  Ensuite lis :
+
+  - multi-vm-explore/run-firecracker.sh
+
+  Questions à comprendre :
+
+  - où est stocké l’état d’une VM
+  - comment l’IP est réservée
+  - comment la MAC est dérivée
+  - quand app-data.ext4 est créé
+  - pourquoi le script ne “se termine” pas
+
+  À retenir :
+
+  - une VM a son dossier :
+      - multi-vm-explore/state/vms/<vm-id>/
+  - fichiers importants :
+      - vm.env
+      - firecracker.socket
+      - app-data.ext4
+      - firecracker.log
+
+  3. Configuration Firecracker et boot
+
+  Puis lis :
+
+  - multi-vm-explore/call-firecracker.sh
+
+  Questions à comprendre :
+
+  - comment le bridge fcbr0 est préparé
+  - comment le TAP est attaché
+  - comment Firecracker reçoit :
+      - le kernel
+      - le rootfs
+      - le disque appfs
+      - l’interface réseau
+  - à quel moment la VM démarre vraiment
+
+  À retenir :
+
+  - run-firecracker.sh lance le process Firecracker
+  - call-firecracker.sh configure l’instance via l’API socket
+  - le vrai démarrage arrive à InstanceStart
+
+  4. Comportement guest au boot
+
+  Ensuite il faut comprendre la partie guest :
+
+  - multi-vm-explore/rootfs-overlay/usr/local/bin/fcnet-setup.sh
+  - squashfs-root/etc/systemd/system/fcnet.service
+
+  Questions à comprendre :
+
+  - comment l’IP guest est calculée depuis la MAC
+  - pourquoi le masque doit être /28
+  - comment la route par défaut est installée
+  - comment /dev/vdb est monté sur /app
+
+  À retenir :
+
+  - rootfs est partagé en lecture seule
+  - appfs est propre à chaque VM
+  - le montage de /app ne se fait pas côté host, mais dans le guest
+
+  5. Modèle mental complet
+
+  Une fois les scripts lus, reformule le flux comme ceci :
+
+  1. get-kernel.sh
+  2. téléchargement kernel + rootfs upstream
+  3. extraction squashfs-root
+  4. injection overlay
+  5. fabrication ubuntu-24.04.ext4
+
+  Puis par VM :
+
+  1. run-firecracker.sh vmX
+  2. création état VM
+  3. choix IP/MAC
+  4. création app-data.ext4
+  5. lancement du process Firecracker
+
+  Puis :
+
+  1. call-firecracker.sh vmX
+  2. création bridge/TAP/NAT
+  3. envoi config boot/source/drives/network
+  4. InstanceStart
+
+  Puis dans le guest :
+
+  1. fcnet.service
+  2. exécution fcnet-setup.sh
+  3. IP /28
+  4. route par défaut
+  5. montage /app
+
+  6. Ce qu’il faut vérifier en pratique
+
+  Pour vraiment comprendre, il faut regarder les artefacts réels :
+
+  - multi-vm-explore/state/vms/vm1/vm.env
+  - multi-vm-explore/state/vms/vm1/firecracker.log
+
+  Et dans la VM :
+
+  - ip addr
+  - ip route
+  - lsblk
+  - mount | grep /app
+  - systemctl status fcnet.service
+
+  7. Pièges importants
+
+  Points qui méritent une attention spéciale :
+
+  - get-kernel.sh est un script de build, pas de runtime
+  - run-firecracker.sh ne démarre pas la VM à lui seul, il lance juste Firecracker
+  - call-firecracker.sh dépend d’une socket déjà prête
+  - le rootfs utilisé par multi-vm-explore est celui de la racine du repo
+  - si le rootfs n’a pas été reconstruit avec l’overlay, le guest reste en /30 et /app ne se monte pas
+  - le disque /app existe côté host avant d’être monté côté guest
+
+  Plan court de travail
+
+  Si tu veux l’étudier sérieusement, fais-le dans cet ordre :
+
+  1. script/get-kernel.sh
+  2. multi-vm-explore/apply-rootfs-overlay.sh
+  3. multi-vm-explore/rootfs-overlay/usr/local/bin/fcnet-setup.sh
+  4. multi-vm-explore/run-firecracker.sh
+  5. multi-vm-explore/call-firecracker.sh
+  6. SESSION-2026-03-30-firecracker-multivm.md
+
+  Si tu veux, au prochain message je peux transformer ce plan en “fiche de compréhension” script par script, avec pour chacun :
+
+  - objectif
+  - entrées
+  - sorties
+  - dépendances
+  - ordre d’exécution
+  - points de vigilance.

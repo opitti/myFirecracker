@@ -1,0 +1,55 @@
+2026-04-01T00:28:28.745650511 [anonymous-instance:fc_api:INFO:src/firecracker/src/api_server/parsed_request.rs:179] The request was executed successfully. Status code: 204 No Content.
+2026-04-01T00:28:28.745689062 [anonymous-instance:fc_api:DEBUG:src/firecracker/src/api_server/mod.rs:115] Total previous API call duration: 196 us.
+2026-04-01T00:28:28.764974916 [anonymous-instance:fc_api:INFO:src/firecracker/src/api_server/parsed_request.rs:74] The API server received a Put request on "/boot-source" with body "{\n        \"kernel_image_path\": \"/home/olivier/dev/firecracker/vmlinux-6.1.155.2\",\n        \"boot_args\": \"console=ttyS0 reboot=k panic=1\"\n    }".
+2026-04-01T00:28:28.765172688 [anonymous-instance:fc_api:INFO:src/firecracker/src/api_server/parsed_request.rs:179] The request was executed successfully. Status code: 204 No Content.
+2026-04-01T00:28:28.765190867 [anonymous-instance:fc_api:DEBUG:src/firecracker/src/api_server/mod.rs:115] Total previous API call duration: 223 us.
+2026-04-01T00:28:28.780239521 [anonymous-instance:fc_api:INFO:src/firecracker/src/api_server/parsed_request.rs:74] The API server received a Put request on "/drives/rootfs" with body "{\n        \"drive_id\": \"rootfs\",\n        \"path_on_host\": \"/home/olivier/dev/firecracker/ubuntu-24.04.ext4\",\n        \"is_root_device\": true,\n        \"is_read_only\": true\n    }".
+2026-04-01T00:28:28.780385543 [anonymous-instance:fc_api:INFO:src/firecracker/src/api_server/parsed_request.rs:179] The request was executed successfully. Status code: 204 No Content.
+2026-04-01T00:28:28.780408507 [anonymous-instance:fc_api:DEBUG:src/firecracker/src/api_server/mod.rs:115] Total previous API call duration: 176 us.
+2026-04-01T00:28:28.794214394 [anonymous-instance:fc_api:INFO:src/firecracker/src/api_server/parsed_request.rs:74] The API server received a Put request on "/drives/appfs" with body "{\n        \"drive_id\": \"appfs\",\n        \"path_on_host\": \"/home/olivier/dev/firecracker/multi-vm-explore/state/vms/vm2/app-data.ext4\",\n        \"is_root_device\": false,\n        \"is_read_only\": false\n    }".
+2026-04-01T00:28:28.794304761 [anonymous-instance:fc_api:INFO:src/firecracker/src/api_server/parsed_request.rs:179] The request was executed successfully. Status code: 204 No Content.
+2026-04-01T00:28:28.794319922 [anonymous-instance:fc_api:DEBUG:src/firecracker/src/api_server/mod.rs:115] Total previous API call duration: 113 us.
+2026-04-01T00:28:28.807596741 [anonymous-instance:fc_api:INFO:src/firecracker/src/api_server/parsed_request.rs:74] The API server received a Put request on "/network-interfaces/net1" with body "{\n        \"iface_id\": \"net1\",\n        \"guest_mac\": \"06:00:ac:10:00:03\",\n        \"host_dev_name\": \"fctap3\"\n    }".
+2026-04-01T00:28:28.808353334 [anonymous-instance:fc_api:INFO:src/firecracker/src/api_server/parsed_request.rs:179] The request was executed successfully. Status code: 204 No Content.
+2026-04-01T00:28:28.808378872 [anonymous-instance:fc_api:DEBUG:src/firecracker/src/api_server/mod.rs:115] Total previous API call duration: 789 us.
+2026-04-01T00:28:28.839256521 [anonymous-instance:fc_api:INFO:src/firecracker/src/api_server/parsed_request.rs:74] The API server received a Put request on "/actions" with body "{\n        \"action_type\": \"InstanceStart\"\n    }".
+2026-04-01T00:28:28.839295925 [anonymous-instance:main:DEBUG:src/vmm/src/builder.rs:383] event_start: build microvm for boot
+2026-04-01T00:28:28.852406941 [anonymous-instance:main:DEBUG:src/vmm/src/arch/x86_64/mod.rs:458] Kernel loaded using PVH boot protocol
+2026-04-01T00:28:28.852465970 [anonymous-instance:main:INFO:src/vmm/src/devices/pci/pci_segment.rs:132] pci: adding PCI segment: id=0x0, PCI MMIO config address: 0xeec00000, mem32 area: [0xc0001000-0xeebfffff], mem64 area: [0x4000000000-0x7fffffffff] IO area: [0xcf8-0xcff]
+2026-04-01T00:28:28.852498800 [anonymous-instance:main:DEBUG:src/vmm/src/device_manager/pci_mngr.rs:119] Allocating BDF: 0000:00:01.0 for device
+2026-04-01T00:28:28.852505758 [anonymous-instance:main:DEBUG:src/vmm/src/vstate/vm.rs:474] Creating new MSI group with 2 vectors
+2026-04-01T00:28:28.852538838 [anonymous-instance:main:DEBUG:src/vmm/src/device_manager/pci_mngr.rs:95] Inserting MMIO BAR region: 0x4000000000:0x80000
+2026-04-01T00:28:28.852576808 [anonymous-instance:main:DEBUG:src/vmm/src/device_manager/pci_mngr.rs:119] Allocating BDF: 0000:00:02.0 for device
+2026-04-01T00:28:28.852583224 [anonymous-instance:main:DEBUG:src/vmm/src/vstate/vm.rs:474] Creating new MSI group with 2 vectors
+2026-04-01T00:28:28.852602610 [anonymous-instance:main:DEBUG:src/vmm/src/device_manager/pci_mngr.rs:95] Inserting MMIO BAR region: 0x4000080000:0x80000
+2026-04-01T00:28:28.852619195 [anonymous-instance:main:DEBUG:src/vmm/src/device_manager/pci_mngr.rs:119] Allocating BDF: 0000:00:03.0 for device
+2026-04-01T00:28:28.852624565 [anonymous-instance:main:DEBUG:src/vmm/src/vstate/vm.rs:474] Creating new MSI group with 3 vectors
+2026-04-01T00:28:28.852639836 [anonymous-instance:main:DEBUG:src/vmm/src/device_manager/pci_mngr.rs:95] Inserting MMIO BAR region: 0x4000100000:0x80000
+2026-04-01T00:28:28.852660691 [anonymous-instance:main:DEBUG:src/vmm/src/devices/acpi/vmgenid.rs:61] vmgenid: building VMGenID device. Address: 0x000dfff0. IRQ: 5
+2026-04-01T00:28:28.852706892 [anonymous-instance:main:DEBUG:src/vmm/src/devices/acpi/vmgenid.rs:114] vmgenid: writing new generation ID to guest: 0x44ec65eed8210d1962e189b17b85154d
+2026-04-01T00:28:28.852791920 [anonymous-instance:main:DEBUG:src/vmm/src/arch/x86_64/mptable.rs:129] mptable: Allocated 304 bytes for MPTable 1 vCPUs at address 0x0009fc00
+2026-04-01T00:28:28.853363959 [anonymous-instance:main:DEBUG:src/vmm/src/acpi/mod.rs:73] acpi: Wrote table (4129 bytes) at address: 0x0009fd30
+2026-04-01T00:28:28.853377509 [anonymous-instance:main:DEBUG:src/vmm/src/acpi/mod.rs:73] acpi: Wrote table (276 bytes) at address: 0x000a0d51
+2026-04-01T00:28:28.853383766 [anonymous-instance:main:DEBUG:src/vmm/src/acpi/mod.rs:73] acpi: Wrote table (64 bytes) at address: 0x000a0e65
+2026-04-01T00:28:28.853389318 [anonymous-instance:main:DEBUG:src/vmm/src/acpi/mod.rs:73] acpi: Wrote table (60 bytes) at address: 0x000a0ea5
+2026-04-01T00:28:28.853394985 [anonymous-instance:main:DEBUG:src/vmm/src/acpi/mod.rs:73] acpi: Wrote table (60 bytes) at address: 0x000a0ee1
+2026-04-01T00:28:28.853401300 [anonymous-instance:main:DEBUG:src/vmm/src/acpi/mod.rs:184] acpi: Wrote RSDP (36 bytes) at address: 0x000e0000
+2026-04-01T00:28:28.853814799 [anonymous-instance:main:DEBUG:src/vmm/src/builder.rs:385] event_end: build microvm for boot
+2026-04-01T00:28:28.853824902 [anonymous-instance:main:DEBUG:src/vmm/src/builder.rs:387] event_start: boot microvm
+2026-04-01T00:28:28.853829782 [anonymous-instance:main:INFO:src/vmm/src/device_manager/mod.rs:281] Artificially kick devices
+2026-04-01T00:28:28.853891061 [anonymous-instance:fc_vcpu 0:WARN:src/vmm/src/vstate/vcpu.rs:303] Received a VcpuEvent::Resume message with immediate_exit enabled. immediate_exit was disabled before proceeding
+2026-04-01T00:28:28.853936262 [anonymous-instance:main:DEBUG:src/vmm/src/builder.rs:389] event_end: boot microvm
+2026-04-01T00:28:28.853970966 [anonymous-instance:fc_api:INFO:src/firecracker/src/api_server/parsed_request.rs:179] The request was executed successfully. Status code: 204 No Content.
+2026-04-01T00:28:28.854017070 [anonymous-instance:fc_api:DEBUG:src/firecracker/src/api_server/mod.rs:115] Total previous API call duration: 14766 us.
+2026-04-01T00:28:29.374052405 [anonymous-instance:fc_vcpu 0:WARN:src/vmm/src/arch/x86_64/vcpu.rs:731] vcpu: IO read @ 0x87:0x1 failed: bus_error: MissingAddressRange
+2026-04-01T00:28:29.456840750 [anonymous-instance:fc_vcpu 0:DEBUG:src/vmm/src/pci/msix.rs:188] MSI-X disabled for device 0x8
+2026-04-01T00:28:29.457239442 [anonymous-instance:fc_vcpu 0:DEBUG:src/vmm/src/pci/msix.rs:174] MSI-X enabled for device 0x8
+2026-04-01T00:28:29.461363773 [anonymous-instance:fc_vcpu 0:DEBUG:src/vmm/src/devices/virtio/transport/pci/device.rs:889] Activating device
+2026-04-01T00:28:29.464419221 [anonymous-instance:fc_vcpu 0:DEBUG:src/vmm/src/pci/msix.rs:188] MSI-X disabled for device 0x10
+2026-04-01T00:28:29.464801083 [anonymous-instance:fc_vcpu 0:DEBUG:src/vmm/src/pci/msix.rs:174] MSI-X enabled for device 0x10
+2026-04-01T00:28:29.468626726 [anonymous-instance:fc_vcpu 0:DEBUG:src/vmm/src/devices/virtio/transport/pci/device.rs:889] Activating device
+2026-04-01T00:28:29.473527040 [anonymous-instance:fc_vcpu 0:DEBUG:src/vmm/src/pci/msix.rs:188] MSI-X disabled for device 0x18
+2026-04-01T00:28:29.474052866 [anonymous-instance:fc_vcpu 0:DEBUG:src/vmm/src/pci/msix.rs:174] MSI-X enabled for device 0x18
+2026-04-01T00:28:29.475361165 [anonymous-instance:fc_vcpu 0:DEBUG:src/vmm/src/devices/virtio/transport/pci/device.rs:889] Activating device
+2026-04-01T00:52:23.942750573 [anonymous-instance:main:WARN:src/vmm/src/devices/legacy/serial.rs:297] Detached the serial input due to peer close/error.
+2026-04-01T00:52:23.943702937 [anonymous-instance:main:ERROR:src/vmm/src/signal_handler.rs:118] Shutting down VM after intercepting signal 1, code 0.

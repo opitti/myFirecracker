@@ -1,0 +1,7 @@
+curl -fsSLI -o /dev/null -w %{url_effective} "https://github.com/firecracker-microvm/firecracker/releases/latest"
+
+
+latest_version="$(basename "$(curl -fsSLI -o /dev/null -w %{url_effective} "https://github.com/firecracker-microvm/firecracker/releases/latest/")")"
+
+
+curl -I https://github.com/firecracker-microvm/firecracker/releases/latest

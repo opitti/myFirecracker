@@ -1,0 +1,11 @@
+/target
+vmlinux*
+*.squashfs.*
+squashfs-root
+ubuntu-24.04.ext4
+squashfs-root
+firecracker
+release-v*
+firecracker-v*.tgz
+*.ext4
+

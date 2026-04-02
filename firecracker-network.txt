@@ -1,0 +1,167 @@
+• Voici la vue d’ensemble.
+
+                      HOST LINUX
+      +--------------------------------------------------+
+      |                                                  |
+      |  Interface réseau physique / Wi‑Fi               |
+      |  ex: eth0 / enp0s... / wlp...                    |
+      |                  |                               |
+      |                  | trafic sortant                |
+      |           +------+--------------------------+    |
+      |           | NAT / iptables / ip_forward     |    |
+      |           +------+--------------------------+    |
+      |                  |                               |
+      |               tap0                               |
+      |        IP: 172.16.0.1/30                         |
+      +------------------|-------------------------------+
+                         |
+                         | lien virtuel Ethernet
+                         |
+      +------------------|-------------------------------+
+      |          microVM Firecracker                     |
+      |                                                  |
+      |   NIC virtuelle de la VM                         |
+      |   MAC: 06:00:AC:10:00:02                         |
+      |   nom dans la VM: eth0                           |
+      |   IP: 172.16.0.2/30                              |
+      |                                                  |
+      |   route par défaut -> 172.16.0.1                 |
+      |   DNS -> 8.8.8.8                                 |
+      +--------------------------------------------------+
+
+  Résumé simple :
+
+  - Le host est ta machine Linux.
+  - tap0 est une interface réseau virtuelle sur le host.
+  - La NIC de la VM est la carte réseau virtuelle vue depuis la microVM, souvent eth0.
+  - Firecracker relie la NIC de la VM à tap0.
+  - Donc tap0 et la NIC de la VM sont les deux extrémités d’un même lien réseau virtuel.
+  - Le host a 172.16.0.1.
+  - La VM a 172.16.0.2.
+  - La VM envoie son trafic vers le host.
+  - Le host fait le routage/NAT vers Internet.
+
+  En une phrase :
+  NIC de la VM <-> tap0 sur le host <-> routage/NAT du host <-> Internet
+
+
+• Dans la microVM
+  ping 8.8.8.8
+      |
+      v
+  +---------------------------+
+  | eth0                      |
+  | IP source: 172.16.0.2     |
+  | GW: 172.16.0.1            |
+  +-------------+-------------+
+                |
+                | paquet ICMP vers 8.8.8.8
+                v
+  ================ lien virtuel =================
+                |
+                v
+  +---------------------------+
+  | tap0 sur le host          |
+  | IP: 172.16.0.1            |
+  +-------------+-------------+
+                |
+                | forwarding IPv4
+                v
+  +---------------------------+
+  | iptables / NAT            |
+  | source 172.16.0.2         |
+  | devient IP du host        |
+  +-------------+-------------+
+                |
+                v
+  +---------------------------+
+  | Interface réseau du host  |
+  | ex: eth0 / wlan0          |
+  +-------------+-------------+
+                |
+                v
+             Internet
+                |
+                v
+              8.8.8.8
+
+  Chemin retour
+
+  8.8.8.8
+    |
+    v
+  Internet
+    |
+    v
+  Interface réseau du host
+    |
+    v
+  iptables / NAT
+  retour vers 172.16.0.2
+    |
+    v
+  tap0
+    |
+    v
+  eth0 dans la microVM
+    |
+    v
+  réponse reçue par `ping`
+
+  Version courte :
+
+  - la VM envoie via eth0
+  - Firecracker remet le trafic sur tap0
+  - le host route et NATe
+  - Internet voit l’IP du host, pas celle de la VM
+  - au retour, le host dé-NATe puis renvoie vers la VM
+
+
+• Connexion SSH depuis le host vers la microVM
+
+  Utilisateur sur le host
+  ssh -i ubuntu-24.04.id_rsa root@172.16.0.2
+      |
+      v
+  +-----------------------------+
+  | Host Linux                  |
+  | processus ssh client        |
+  +--------------+--------------+
+                 |
+                 | destination: 172.16.0.2:22
+                 v
+  +-----------------------------+
+  | tap0                        |
+  | IP host: 172.16.0.1/30      |
+  +--------------+--------------+
+                 |
+                 | lien virtuel Ethernet
+                 v
+  +-----------------------------+
+  | NIC virtuelle de la microVM |
+  | nom dans la VM: eth0        |
+  | IP guest: 172.16.0.2/30     |
+  +--------------+--------------+
+                 |
+                 | port 22
+                 v
+  +-----------------------------+
+  | serveur SSH dans la microVM |
+  | utilisateur: root           |
+  +-----------------------------+
+
+  Point important :
+
+  - ici, le trafic ne passe pas par Internet
+  - il ne passe pas non plus par le NAT
+  - c’est une communication directe entre le host 172.16.0.1 et la VM 172.16.0.2 sur le petit réseau privé créé via tap0
+
+  Flux retour :
+
+  - le serveur SSH de la VM répond
+  - la réponse repart via eth0
+  - elle revient sur tap0
+  - le client SSH du host reçoit les paquets
+
+  Résumé :
+  ssh client sur le host -> tap0 -> NIC/eth0 de la VM -> sshd dans la VM

@@ -1,0 +1,37 @@
+• Dans ce flux multi-VM, l’IP n’est pas réellement configurée dans la VM ni au run, ni au call directement. Elle est décidée au run, puis appliquée dans le
+  guest au boot.
+
+  Au run, le script multi-vm-explore/run-firecracker.sh choisit une IP libre dans 172.16.0.2 à 172.16.0.14, en lisant les vm.env existants, puis enregistre
+  cette IP comme GUEST_IP et en déduit aussi GUEST_MAC et TAP_DEV dans multi-vm-explore/state/vms. La logique est visible autour de multi-vm-explore/run-
+  firecracker.sh:47, multi-vm-explore/run-firecracker.sh:56 et multi-vm-explore/run-firecracker.sh:68.
+
+  Au call, le script multi-vm-explore/call-firecracker.sh ne pousse pas l’IP dans Firecracker comme paramètre IP. Il configure surtout :
+
+  - le bridge host
+  - le TAP côté host
+  - l’interface réseau Firecracker avec guest_mac="${GUEST_MAC}"
+
+  C’est visible dans multi-vm-explore/call-firecracker.sh:61 et surtout multi-vm-explore/call-firecracker.sh:84.
+
+  Ensuite, dans la VM, le script guest multi-vm-explore/rootfs-overlay/usr/local/bin/fcnet-setup.sh lit la MAC de l’interface, extrait sa partie après
+  06:00:, la convertit en IPv4, puis fait :
+
+  - ip addr replace ...
+  - ip route replace default via 172.16.0.1
+
+  C’est la partie clé dans multi-vm-explore/rootfs-overlay/usr/local/bin/fcnet-setup.sh:17 à multi-vm-explore/rootfs-overlay/usr/local/bin/fcnet-setup.sh:31.
+
+  En pratique :
+
+  - run = réserve l’IP et calcule la MAC
+  - call = injecte la MAC dans la config Firecracker
+  - boot guest = le script guest reconstitue l’IP à partir de la MAC et configure l’interface
+
+  Exemple :
+
+  - si run choisit 172.16.0.3
+  - alors la MAC devient 06:00:ac:10:00:03
+  - dans la VM, fcnet-setup.sh reconstruit 172.16.0.3 depuis cette MAC
+
+  Donc la réponse courte est : l’IP est déterminée lors du run, mais elle est effectivement appliquée dans la VM au démarrage via le script guest, à partir
+  de la MAC transmise au call.
