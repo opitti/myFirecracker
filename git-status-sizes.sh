@@ -17,11 +17,12 @@ RESET='\033[0m'
 # Formatage lisible d'une taille en octets
 human_size() {
     local bytes=$1
-    if   (( bytes >= 1073741824 )); then printf "%.1f Go" "$(echo "scale=1; $bytes/1073741824" | bc)"
-    elif (( bytes >= 1048576    )); then printf "%.1f Mo" "$(echo "scale=1; $bytes/1048576"    | bc)"
-    elif (( bytes >= 1024       )); then printf "%.1f Ko" "$(echo "scale=1; $bytes/1024"       | bc)"
-    else printf "%d B" "$bytes"
-    fi
+    awk -v b="$bytes" 'BEGIN {
+        if      (b >= 1073741824) printf "%.1f Go", b/1073741824
+        else if (b >= 1048576)   printf "%.1f Mo", b/1048576
+        else if (b >= 1024)      printf "%.1f Ko", b/1024
+        else                     printf "%d B",    b
+    }'
 }
 
 # Vérifie qu'on est dans un repo git
